@@ -22,9 +22,15 @@ extraction debris, not facts:
 | memoria_instructions | 868 (814 active) | **~50% usable rules** but polluted with one-off narration (752 distinct texts) | **RECOVERABLE** |
 | memoria_preferences | 795 | noise is **63.5% duplication** → 290 unique, mostly genuine | **RECOVERABLE** |
 
-**Root cause (wiki `systems/memory-and-mnemosyne.md`):** `MNEMOSYNE_LLM_ENABLED=false` and
-`llm_enabled: false` since **2026-08-07** — LLM-based extraction has been off for ~2 months;
-only rules-based AAAK runs, producing fragments.
+**Root cause (CORRECTED 2026-10-05 — see `docs/CORRECTION-2026-10-05.md`):** my first
+attribution ("LLM extraction off since 2026-08-07") was **WRONG**. The `memoria_*` tables
+are populated by a **rules/regex extractor** (`BeamMemory.extract_and_store_facts()`,
+beam.py:7590) that runs **unconditionally on every `remember()`**, independent of
+`MNEMOSYNE_LLM_ENABLED` — labeled "always-on, zero-LLM-cost" in the code. Verified: probe
+writes made *after* re-enabling the LLM flag still grew `memoria_facts` (9,880 → 9,895)
+with the same debris pattern. The LLM (`extract=True`) path writes to a **different store**
+(`facts` + `annotations`). The 2026-08-07 wiki note concerned LLM summarization via a broken
+local URL — unrelated to this debris.
 
 **Independent verification:** a researcher subagent re-measured every layer and returned
 **PARTIAL** — confirming the debris layers but **refuting** the blanket claim for
