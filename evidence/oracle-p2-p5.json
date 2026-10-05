@@ -1,0 +1,40 @@
+{
+  "clean": {
+    "p": 0.0009697518854498985,
+    "body": {
+      "model": "inception/mercury-decide-20260930",
+      "answers": {
+        "proceed": {
+          "type": "noul",
+          "noul": 0.0009697518854498985
+        }
+      },
+      "usage": {
+        "input_tokens": 139,
+        "output_tokens": 2,
+        "cost": 0
+      },
+      "id": "gen-dec-1791204814-nTEppvZyJsOIjQH9Bv0d",
+      "provider": "Inception"
+    }
+  },
+  "full": {
+    "p": 0.9859363700899415,
+    "body": {
+      "model": "inception/mercury-decide-20260930",
+      "answers": {
+        "proceed": {
+          "type": "noul",
+          "noul": 0.9859363700899415
+        }
+      },
+      "usage": {
+        "input_tokens": 151,
+        "output_tokens": 3,
+        "cost": 0
+      },
+      "id": "gen-dec-1791204815-cPGxBmuJ7BqF4ECev2MW",
+      "provider": "Inception"
+    }
+  }
+}

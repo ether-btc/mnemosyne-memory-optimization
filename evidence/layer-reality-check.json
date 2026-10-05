@@ -1,0 +1,46 @@
+{
+  "canonical_facts": {
+    "total": 1837,
+    "actionable_non_taskprogress": 40
+  },
+  "memoria_facts": {
+    "total": 9880,
+    "by_type": {
+      "date": 4991,
+      "metric": 3031,
+      "sequence": 1190,
+      "version": 668
+    }
+  },
+  "triples": {
+    "total": 8559,
+    "open": 1733,
+    "open_noise_occurred_on_mentions": 1612
+  },
+  "graph_edges": {
+    "total": 3162,
+    "by_type": {
+      "ctx": 3161,
+      "supersedes": 1
+    }
+  },
+  "consolidated_facts": {
+    "total": 1813
+  },
+  "memoria_kg": {
+    "total": 73
+  },
+  "memoria_instructions": {
+    "total": 868,
+    "active": 814
+  },
+  "memoria_preferences": {
+    "total": 795
+  },
+  "working_memory": {
+    "total": 12344
+  },
+  "episodic_memory": {
+    "total": 2648
+  }
+}
