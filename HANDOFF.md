@@ -7,7 +7,8 @@
 **Starting Point:** The Mnemosyne Operability study (complete) identified that Mnemosyne is used correctly 6/6 times when invoked. This project extends that finding: instead of relying on the agent to remember to use Mnemosyne, we make Mnemosyne the orchestrator of workflow decisions.
 
 **Date:** 2026-10-05
-**Status:** P1 BUILT + P2–P5 DISPOSITIONED (evidence-gated; see docs/PHASE-DISPOSITIONS.md)
+**Status:** ✅ CLOSED 2026-10-05. P1 built; P2–P5 dispositioned; root cause CORRECTED.
+See `docs/PHASE-DISPOSITIONS.md` and `docs/CORRECTION-2026-10-05.md`.
 
 > **OUTCOME (2026-10-05):** The project's premise — "Mnemosyne holds ~10K structured facts
 > that can drive workflows" — is **FALSE**. Ground-truth measurement found the KG,
@@ -264,12 +265,12 @@ bash scripts/preflight.sh
 
 ---
 
-## Next Session Start
+## Next Session Start — PROJECT CLOSED
 
-1. Read this handoff
-2. Run `mnemosyne_stats` to verify current state
-3. **Phase 1 is COMPLETE** (commit bcb5f3e) — see `docs/canonical-triggers.md`
-4. Start Phase 2: Knowledge Graph Dependencies
+**Nothing to resume.** The project is closed. If reopening:
+
+1. Read `docs/PHASE-DISPOSITIONS.md` (dispositions) and `docs/CORRECTION-2026-10-05.md` (root-cause correction).
+2. The only open engineering question is the **regex extractor** (`BeamMemory.extract_and_store_facts()`, `beam.py:7590`) that writes the `memoria_*` debris — it has no config toggle and would need a code change to gate/disable. The `MNEMOSYNE_LLM_ENABLED` flag does **not** affect it.
 
 ---
 
@@ -279,9 +280,11 @@ bash scripts/preflight.sh
 |-------|--------|--------|-------|
 | P1: Canonical Slot Triggers | ✅ BUILT | bcb5f3e | 8 workflow suggestions; handoff's status-slot assumption was wrong — adapted to real data |
 | P2: KG Dependencies | ⛔ CLOSED NEGATIVE | cf83175 | "73-entry KG" is fragment junk; graph_edges is co-location index metadata. Oracle 0.0010 |
-| P3: Memoria Facts | 🔁 REFRAMED | — | memoria_facts is dates/metrics. Delivered `preflight_context.py` (session context card) instead |
+| P3: Memoria Facts | 🔁 REFRAMED | 0a94f56 | memoria_facts is dates/metrics. Delivered `preflight_context.py` (session context card) instead |
 | P4: Instructions to Scripts | 🔁 REFRAMED | — | ~50% usable but mixed with one-offs; durable rules already the 22 canonical slots |
 | P5: Preferences to Defaults | ⛔ SUBSUMED | — | 63.5% dup; uniques not machine-actionable; actionable subset is canonical preference slots |
+| WIP hygiene (follow-up b) | ✅ DONE | 0a94f56 | `wip_hygiene.py` retired 129 closed task:progress slots (345→216), valid_until stamped |
+| Root-cause CORRECTION | ✅ FILED | 4ff4de9 | memoria_* debris = always-on REGEX extractor, NOT the LLM flag |
 
 ### P1 + P3 Deliverables
 
@@ -293,8 +296,10 @@ bash scripts/preflight.sh
 - `evidence/layer-reality-check.json`, `evidence/layer-verification.md`, `evidence/oracle-p2-p5.json`
 - `evidence/phase1-test-results.txt` — Test output
 
-### Highest-leverage follow-up (NOT in scope, needs operator decision)
+### Highest-leverage follow-up (CORRECTED — see docs/CORRECTION-2026-10-05.md)
 
-Re-enable `MNEMOSYNE_LLM_ENABLED=true` (off since 2026-08-07) so future extraction produces
-clean facts — a prerequisite for any future "structured memory" work. Config change with
-cost/runtime implications.
+The `memoria_*` debris is **not** caused by a config flag. It is written by the **always-on
+regex extractor** (`BeamMemory.extract_and_store_facts()`, `beam.py:7590`), which has no
+toggle. To stop the debris requires a **code change** to gate/disable it. The
+`MNEMOSYNE_LLM_ENABLED` change (applied 2026-10-05) only affects the separate LLM
+`extract=True` path (`facts` + `annotations`), which is off by default.
