@@ -1,0 +1,77 @@
+=== Phase 1 Test Results ===
+Date: 2026-10-05T14:28:34+02:00
+
+--- check_canonical.py --suggest ---
+======================================================================
+WORKFLOW SUGGESTIONS
+======================================================================
+
+1. [preference/aeon-is-the-filing-system]
+   → Use AEON for all filing operations (standing operator instruction)
+   → Script: aeon
+
+2. [preference/long_running_soak_approval]
+   → Require explicit approval before starting any long-running soak
+   → Script: preflight.sh
+
+3. [preference/memory-backend]
+   → Mnemosyne is the durable memory backend — do not replace
+
+4. [workflow/reviewer-finding-handling]
+   → Verify each reviewer finding against authoritative source before acting
+
+5. [workflow/measured-figure-corrections]
+   → Verify measured figures against authoritative source when reviewer notes differ
+
+6. [project/stealth-copilot-bridge]
+   → Private fork ether-btc/stealth_copilot_bridge — check for updates
+
+7. [hermes-config/delegation-model]
+   → Delegation model configured: delegation.model = glm-5.3 (flipped from glm-5.2 on 2026-08-26 15:08 CEST, user-requested). delegati
+
+8. [task:progress (41 recent)]
+   → Active work in progress — check recent sessions for context
+
+
+--- check_canonical.py --prefs ---
+======================================================================
+PREFERENCE SLOTS
+======================================================================
+  [1784] aeon-is-the-filing-system: AEON IS THE STANDING FILING SYSTEM — use it regularly and by default, without the operator having to ask (operator instruction, 2026-10-04: "let's make sure, we use AEON from now on again and regularly, without me having to tell you"). This supersedes any habit of ad-hoc `gh` state reads or bespoke trackers. CONCRETE RULE: any GitHub filing action (opening/closing/reopening a PR, filing an issue, ...
+  [309] long_running_soak_approval: User requires explicit approval before starting any long-running soak (especially 72-hour/7-day), with impeccable justification covering purpose, expected benefit, system impact, duration, interruption/rollback plan, and data-salvage limits.
+  [323] memory-backend: Mnemosyne stays as the durable memory backend. Any MEMhooks adoption must preserve Mnemosyne and use MEMhooks only as a project-scoped recall-routing layer, not as a replacement or competing memory store.
+  [93] memory-md-style: MEMORY.md (`~/.hermes/memories/MEMORY.md`) must stay permanently lean and operational. Rules:  **Admission test** (all must pass): (1) Machine-specific — a concrete tool quirk, exact recovery command, credential naming gotcha, or deployment trap on THIS system. (2) Non-derivable — rediscovering it costs more than one obvious command. (3) Failure-repeating — forgetting it causes repeated failure, n...
+  [113] rhagent-bot-internal-registry: rhagent.bot internal registry — content posted + actions committed. Maintained via Mnemosyne canonical slots rhagent-bot-posts and rhagent-bot-actions. Every interaction saved before reply. Empty on 2026-08-14 (no registration/posting yet).
+  [112] rhagent-bot-registry-policy: rhagent.bot contribution workflow: (1) maintain internal registry of posts + actions via Mnemosyne (fact triples + canonical slots), (2) one-time wiki sync of assessments, (3) every rhagent.bot interaction saved before reply. Established 2026-08-13 per user directive.
+  [1788] superseded-vs-merged: CORRECTION 2026-10-04 — I was WRONG about PR #108293, and an independent verifier (deleg_90fb1bbd) caught it. I had concluded it was "SUPERSEDED — upstream already has the mixin split" and nearly closed it. That was FALSE and dangerously wrong, because closing a PR as superseded destroys months of work. THE ERROR: I ran `git ls-tree up/main hermes_cli/ | grep mixin`, saw 16 mixin modules including...
+
+
+--- check_canonical.py --recent (first 10 lines) ---
+======================================================================
+RECENT TASK:PROGRESS (last 7 days)
+======================================================================
+  [1834] 20261005-trust-boundary-3e11ee43: PHASE 6 DONE (2026-10-05 14:21 CEST). Trust-boundary WRAP fix 3e11ee43d8 fully reviewed (0 blocking), N1 regression test folded into publish head b79d8a3f (content-identical to 3e11ee43d8 + 23-line test, author preserved), gate 48/47 (0 new failures), ocr 27 FP, bandit 0 H/M, oracle steer followed (...
+  [1829] 20261005-ponytail-aeon-gh-closeout: SESSION CONCLUDED 2026-10-05 ~12:45 CEST, all items verified. CARRY-OVERS (re-verified live 2026-10-05 ~13:00): CLOSED-SUPERSeded (2): PR #123875 was CLOSED 2026-09-28 as superseded by #126344, which MERGED upstream 2026-09-28T22:02Z (merge 744f05e2) — CI re-check moot; prompro-trade is now enabled+...
+  [1828] module-sop-adoption: 2026-10-05 module-sop-adoption: PILOT LIVE on prompro-local-direction branch adoption/module-gate (origin 988ff04). A=e034821 gate+config (single revert target), B=988ff04 survivor docs. Gate+doc_check PASS; red-arm verified; removal drill BOTH paths pass (revert conflict-free + fail-closed script r...
+  [1827] module-sop-upstream: 2026-10-05: Rebased both PRs onto v1.0.2 (810c1a6) and force-pushed (pre-auth own-fork): PR#1 eb373bc, PR#2 bcb240d (ls-remote verified). PR#2 gained 3rd commit: .pytest_cache non_module_dirs exemption + red-arm test (74 tests OK, gates x4 PASS). Red confirmed self-inflicted (fresh clone passes). Mu...
+  [1825] mnemosyne-537-venv-overlay: DONE — both review rounds dispositioned, no finding left open. Round 2 (t_c3ab3957) bound by SHA-256 to exact bytes, discarded two stale passes on its own when targets changed mid-review, confirmed all 7 Codex fixes closed, then found 4 MAJOR + 2 MINOR. FIXED: (1) --restore re-reads the venv for eve...
+  [1823] usb32-followup-20261005: CLOSED 2026-10-05. USB32 follow-up prompt crafted/executed, final report and review disposition saved, independent reviewer GO-WITH-CONDITIONS/high. Confirmed fallback helper uses findmnt --target status only and therefore does not prove ext4 UUID mount; profile -d guard similarly autofs-blind; help...
+  [1817] fxn-content-oct2026-gif-batch: 2026-10-05 session closed. (1) GH: #106080+#108293 closed at 30-PR cap not for cause - heads intact on fork + preserved/* backups + recovery comments filed; 3 open PRs permanently BLOCKED needing upstream maintainer. (2) FXN meme batch built + QA-verified (2 defects caught+fixed), awaiting user manu...
+
+--- preflight.sh ---
+=== Preflight Checks ===
+
+✓ Disk space (>= 2GB free)
+✓ Network (ping 8.8.8.8)
+✓ Podman installed
+✗ a16 reachable
+✓ Local decider-0.8b (port 8086)
+✓ Local qwen2.5-1.5b (port 8099)
+✗ OpenRouter API key
+✓ Git configured
+✓ Mnemosyne DB exists
+✓ Mnemosyne canonical slots queryable
+
+=== Results: 8 passed, 2 failed ===
+
+WARNING: 2 check(s) failed. Address these before proceeding.

@@ -47,6 +47,10 @@ check "OpenRouter API key" "test -n \"\${OPENROUTER_API_KEY:-}\""
 # Git (for filing workflows)
 check "Git configured" "git config user.name && git config user.email"
 
+# Mnemosyne canonical slots (for workflow awareness)
+check "Mnemosyne DB exists" "test -f ~/.hermes/mnemosyne/data/mnemosyne.db"
+check "Mnemosyne canonical slots queryable" "python3 -c 'import sys; sys.path.insert(0, str(__import__(\"pathlib\").Path.home() / \"mnemosyne\")); from mnemosyne.core.canonical import CanonicalStore, _default_db_path; s=CanonicalStore(_default_db_path()); assert len(s.list(\"default\")) > 0'"
+
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="
 
