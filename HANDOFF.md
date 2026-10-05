@@ -7,7 +7,15 @@
 **Starting Point:** The Mnemosyne Operability study (complete) identified that Mnemosyne is used correctly 6/6 times when invoked. This project extends that finding: instead of relying on the agent to remember to use Mnemosyne, we make Mnemosyne the orchestrator of workflow decisions.
 
 **Date:** 2026-10-05
-**Status:** PHASE 1 COMPLETE (commit bcb5f3e, local-only, not pushed)
+**Status:** P1 BUILT + P2–P5 DISPOSITIONED (evidence-gated; see docs/PHASE-DISPOSITIONS.md)
+
+> **OUTCOME (2026-10-05):** The project's premise — "Mnemosyne holds ~10K structured facts
+> that can drive workflows" — is **FALSE**. Ground-truth measurement found the KG,
+> memoria_facts, consolidated_facts, and instruction/preference layers are largely extraction
+> debris (root cause: LLM extraction disabled since 2026-08-07). Independent verification
+> returned **PARTIAL**; a mercury-decide oracle steered against building on those layers
+> (|Δ|=0.985). **P1 built; P2 closed negative; P3 reframed (delivered a session context card);
+> P4 reframed; P5 subsumed.** See `docs/PHASE-DISPOSITIONS.md`.
 
 ---
 
@@ -269,17 +277,24 @@ bash scripts/preflight.sh
 
 | Phase | Status | Commit | Notes |
 |-------|--------|--------|-------|
-| P1: Canonical Slot Triggers | ✅ COMPLETE | bcb5f3e | 8 workflow suggestions; handoff's status-slot assumption was wrong — adapted to real data |
-| P2: KG Dependencies | ⏳ TODO | — | — |
-| P3: Memoria Facts | ⏳ TODO | — | — |
-| P4: Instructions to Scripts | ⏳ TODO | — | — |
-| P5: Preferences to Defaults | ⏳ TODO | — | — |
+| P1: Canonical Slot Triggers | ✅ BUILT | bcb5f3e | 8 workflow suggestions; handoff's status-slot assumption was wrong — adapted to real data |
+| P2: KG Dependencies | ⛔ CLOSED NEGATIVE | cf83175 | "73-entry KG" is fragment junk; graph_edges is co-location index metadata. Oracle 0.0010 |
+| P3: Memoria Facts | 🔁 REFRAMED | — | memoria_facts is dates/metrics. Delivered `preflight_context.py` (session context card) instead |
+| P4: Instructions to Scripts | 🔁 REFRAMED | — | ~50% usable but mixed with one-offs; durable rules already the 22 canonical slots |
+| P5: Preferences to Defaults | ⛔ SUBSUMED | — | 63.5% dup; uniques not machine-actionable; actionable subset is canonical preference slots |
 
-**IMPORTANT (P1 finding):** The canonical slots do NOT contain status slots like `bekko-model-status`, `wiki-status`, `a16-status`. They are 344 `task:progress` + 37 actionable (7 preferences, 2 workflow rules, project states, config snapshots). Any plan assuming status slots must be revised.
-
-### P1 Deliverables
+### P1 + P3 Deliverables
 
 - `scripts/check_canonical.py` — Query canonical slots, generate workflow suggestions (`--recent`, `--prefs`, `--suggest`)
+- `scripts/preflight_context.py` — Session context card: 22 rule slots + recent WIP (9.5 KB, read-only)
 - `scripts/preflight.sh` — +2 checks (Mnemosyne DB exists, slots queryable)
 - `docs/canonical-triggers.md` — Phase 1 documentation
+- `docs/PHASE-DISPOSITIONS.md` — all phase dispositions + honest scorecard
+- `evidence/layer-reality-check.json`, `evidence/layer-verification.md`, `evidence/oracle-p2-p5.json`
 - `evidence/phase1-test-results.txt` — Test output
+
+### Highest-leverage follow-up (NOT in scope, needs operator decision)
+
+Re-enable `MNEMOSYNE_LLM_ENABLED=true` (off since 2026-08-07) so future extraction produces
+clean facts — a prerequisite for any future "structured memory" work. Config change with
+cost/runtime implications.

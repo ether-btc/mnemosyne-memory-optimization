@@ -13,8 +13,6 @@ Usage:
 """
 
 import sys
-import os
-import json
 import argparse
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -95,7 +93,7 @@ def show_full_report(store):
             dt = datetime.fromisoformat(ts.replace("Z", "+00:00").split("+")[0])
             if dt > cutoff:
                 recent.append(slot)
-        except:
+        except (ValueError, TypeError):
             pass
 
     if recent:
@@ -124,7 +122,7 @@ def show_recent(store):
             dt = datetime.fromisoformat(ts.replace("Z", "+00:00").split("+")[0])
             if dt > cutoff:
                 recent.append(slot)
-        except:
+        except (ValueError, TypeError):
             pass
 
     if not recent:
@@ -236,7 +234,7 @@ def show_suggestions(store):
             dt = datetime.fromisoformat(ts.replace("Z", "+00:00").split("+")[0])
             if dt > cutoff:
                 recent_tasks.append(slot)
-        except:
+        except (ValueError, TypeError):
             pass
 
     if recent_tasks:
