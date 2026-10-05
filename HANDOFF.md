@@ -7,7 +7,7 @@
 **Starting Point:** The Mnemosyne Operability study (complete) identified that Mnemosyne is used correctly 6/6 times when invoked. This project extends that finding: instead of relying on the agent to remember to use Mnemosyne, we make Mnemosyne the orchestrator of workflow decisions.
 
 **Date:** 2026-10-05
-**Status:** READY TO START
+**Status:** PHASE 1 COMPLETE (commit bcb5f3e, local-only, not pushed)
 
 ---
 
@@ -260,6 +260,26 @@ bash scripts/preflight.sh
 
 1. Read this handoff
 2. Run `mnemosyne_stats` to verify current state
-3. Start Phase 1: Create `scripts/check-canonical.sh`
-4. Test with existing canonical slots
-5. Document results in `docs/canonical-triggers.md`
+3. **Phase 1 is COMPLETE** (commit bcb5f3e) — see `docs/canonical-triggers.md`
+4. Start Phase 2: Knowledge Graph Dependencies
+
+---
+
+## Phase Progress Log
+
+| Phase | Status | Commit | Notes |
+|-------|--------|--------|-------|
+| P1: Canonical Slot Triggers | ✅ COMPLETE | bcb5f3e | 8 workflow suggestions; handoff's status-slot assumption was wrong — adapted to real data |
+| P2: KG Dependencies | ⏳ TODO | — | — |
+| P3: Memoria Facts | ⏳ TODO | — | — |
+| P4: Instructions to Scripts | ⏳ TODO | — | — |
+| P5: Preferences to Defaults | ⏳ TODO | — | — |
+
+**IMPORTANT (P1 finding):** The canonical slots do NOT contain status slots like `bekko-model-status`, `wiki-status`, `a16-status`. They are 344 `task:progress` + 37 actionable (7 preferences, 2 workflow rules, project states, config snapshots). Any plan assuming status slots must be revised.
+
+### P1 Deliverables
+
+- `scripts/check_canonical.py` — Query canonical slots, generate workflow suggestions (`--recent`, `--prefs`, `--suggest`)
+- `scripts/preflight.sh` — +2 checks (Mnemosyne DB exists, slots queryable)
+- `docs/canonical-triggers.md` — Phase 1 documentation
+- `evidence/phase1-test-results.txt` — Test output
